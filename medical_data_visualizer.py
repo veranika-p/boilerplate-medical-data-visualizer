@@ -36,19 +36,14 @@ def draw_cat_plot():
 # 10
 def draw_heat_map():
     # 11
-    height_low = df['height'].quantile(0.025)
-    height_high = df['height'].quantile(0.975)
-    weight_low = df['weight'].quantile(0.025)
-    weight_high = df['weight'].quantile(0.975)
-
     df_heat = df[
         (df['ap_lo'] <= df['ap_hi']) &
-        (df['height'] >= height_low) &
-        (df['height'] <= height_high) &
-        (df['weight'] >= weight_low) &
-        (df['weight'] <= weight_high)
+        (df['height'] >= df['height'].quantile(0.025)) &
+        (df['height'] <= df['height'].quantile(0.975)) &
+        (df['weight'] >= df['weight'].quantile(0.025)) &
+        (df['weight'] <= df['weight'].quantile(0.975))
     ]
-
+    
     # 12
     corr = df_heat.corr().round(1)
 
